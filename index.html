@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#208d8e">
+    <title>Evol Jewels - AI Style Kiosk</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- News Ticker -->
+    <div id="news-ticker" class="news-ticker">
+        <div class="news-ticker-content">
+            <span class="news-item">Loading latest celebrity jewelry trends...</span>
+        </div>
+    </div>
+
+    <!-- Mirror/Welcome Screen -->
+    <div id="welcome-screen" class="screen active">
+        <div class="mirror-overlay"></div>
+        <div class="welcome-content">
+            <div class="brand-logo">
+                <h1>Evol Jewels</h1>
+                <p class="tagline">Discover Your Perfect Style</p>
+            </div>
+            <div class="touch-prompt">
+                <div class="touch-indicator">
+                    <div class="pulse-ring"></div>
+                    <div class="touch-icon">✋</div>
+                </div>
+                <h2>
+                    <span class="kiosk-only">Touch to Begin Your Style Journey</span>
+                    <span class="mobile-only">Tap to Begin</span>
+                    <span class="desktop-only">Click to Begin Your Style Journey</span>
+                </h2>
+                <p>
+                    <span class="kiosk-only">Discover trends inspired by your favorite celebrities</span>
+                    <span class="mobile-only">Find your perfect jewelry style</span>
+                    <span class="desktop-only">Discover jewelry trends inspired by your favorite celebrities</span>
+                </p>
+                <div class="trending-now">
+                    <span class="trending-badge">Trending Now</span>
+                    <span id="current-trend">Celebrity jewelry trends updated daily</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Survey Screen -->
+    <div id="survey-screen" class="screen">
+        <div class="survey-header">
+            <div class="survey-tabs">
+                <button class="tab-btn active" data-tab="survey">Style Survey</button>
+                <button class="tab-btn" data-tab="news">Celebrity News</button>
+                <button class="tab-btn" data-tab="trends">Trending Now</button>
+            </div>
+            <h2>Style Discovery Survey</h2>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+                <span class="progress-text">Question <span id="current-question">1</span> of 5</span>
+            </div>
+        </div>
+        
+        <div class="survey-content">
+            <div class="question-container">
+                <h3 id="question-text"></h3>
+                <div id="question-options" class="options-grid"></div>
+                <div id="budget-slider" class="budget-slider-container hidden">
+                    <div class="budget-display">
+                        <span>₹</span><span id="budget-value">665000</span>
+                    </div>
+                    <input type="range" id="budget-range" min="30000" max="1300000" value="665000" class="budget-input">
+                    <div class="budget-labels">
+                        <span>₹30,000</span>
+                        <span>₹1,300,000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="survey-navigation">
+            <button id="prev-btn" class="btn btn--outline btn--lg" disabled>Previous</button>
+            <button id="next-btn" class="btn btn--primary btn--lg" disabled>Next</button>
+        </div>
+    </div>
+
+    <!-- Analysis Screen -->
+    <div id="analysis-screen" class="screen">
+        <div class="analysis-content">
+            <div class="analysis-animation">
+                <div class="spinning-gems">
+                    <div class="gem">💎</div>
+                    <div class="gem">💍</div>
+                    <div class="gem">✨</div>
+                </div>
+            </div>
+            <h2>Analyzing Your Style...</h2>
+            <p>Our AI is matching your preferences with celebrity styles</p>
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Celebrity News Tab -->
+    <div id="news-tab" class="tab-content hidden">
+        <div class="news-header">
+            <h2>Celebrity Style News</h2>
+            <div class="news-filters">
+                <button class="filter-btn active" data-filter="all">All News</button>
+                <button class="filter-btn" data-filter="red-carpet">Red Carpet</button>
+                <button class="filter-btn" data-filter="jewelry">Jewelry Trends</button>
+                <button class="filter-btn" data-filter="celebrity">Celebrity Updates</button>
+            </div>
+        </div>
+        <div class="news-grid" id="news-grid">
+            <div class="loading-news">Loading latest celebrity jewelry news...</div>
+        </div>
+    </div>
+
+    <!-- Trending Now Tab -->
+    <div id="trends-tab" class="tab-content hidden">
+        <div class="trends-header">
+            <h2>What's Trending Now</h2>
+        </div>
+        <div class="trends-content">
+            <div class="trending-celebrities" id="trending-celebrities">
+                <div class="loading-trends">Loading trending celebrities...</div>
+            </div>
+            <div class="trending-topics" id="trending-topics">
+                <!-- Trending topics will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Results Screen -->
+    <div id="results-screen" class="screen">
+        <div class="results-header">
+            <h2>Your Style Match</h2>
+        </div>
+        
+        <div class="celebrity-match">
+            <div class="celebrity-card">
+                <div class="celebrity-image" id="celebrity-image">
+                    <div class="image-placeholder">📸</div>
+                </div>
+                <div class="celebrity-info">
+                    <h3>Your style matches</h3>
+                    <h2 id="celebrity-name" class="celebrity-name"></h2>
+                    <div class="celebrity-details">
+                        <div class="style-category" id="style-category"></div>
+                        <div class="celebrity-popularity" id="celebrity-popularity"></div>
+                        <div class="celebrity-projects" id="celebrity-projects"></div>
+                    </div>
+                    <p id="style-description" class="style-description"></p>
+                    <div class="recent-news" id="celebrity-recent-news">
+                        <!-- Recent news about this celebrity will appear here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="results-actions">
+            <button id="view-products-btn" class="btn btn--primary btn--lg">View Your Collection</button>
+            <button id="view-celebrity-news-btn" class="btn btn--outline btn--lg">See Celebrity News</button>
+            <button id="style-timeline-btn" class="btn btn--secondary btn--lg">Style Timeline</button>
+        </div>
+    </div>
+
+    <!-- Products Screen -->
+    <div id="products-screen" class="screen">
+        <div class="products-header">
+            <h2>Your Personalized Collection</h2>
+            <div class="filters">
+                <select id="category-filter" class="form-control filter-select">
+                    <option value="">All Categories</option>
+                    <option value="Ring">Rings</option>
+                    <option value="Earring">Earrings</option>
+                    <option value="Necklace">Necklaces</option>
+                    <option value="Bracelet">Bracelets</option>
+                    <option value="Pendant">Pendants</option>
+                </select>
+                
+                <select id="collection-filter" class="form-control filter-select">
+                    <option value="">All Collections</option>
+                    <option value="Floral Collection">Floral Collection</option>
+                    <option value="Tribal Collection">Tribal Collection</option>
+                    <option value="Butterfly Collection">Butterfly Collection</option>
+                    <option value="Cosmic Collection">Cosmic Collection</option>
+                    <option value="Sun">Sun Collection</option>
+                    <option value="Paan Collection">Paan Collection</option>
+                </select>
+                
+                <select id="price-filter" class="form-control filter-select">
+                    <option value="">All Prices</option>
+                    <option value="0-50000">Under ₹50,000</option>
+                    <option value="50000-100000">₹50,000 - ₹1,00,000</option>
+                    <option value="100000-500000">₹1,00,000 - ₹5,00,000</option>
+                    <option value="500000+">Above ₹5,00,000</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="products-grid" id="products-grid">
+            <!-- Products will be dynamically inserted here -->
+        </div>
+        
+        <!-- Interactive Features Modal -->
+        <div id="interactive-modal" class="modal-overlay hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modal-title">Interactive Feature</h3>
+                    <button id="close-modal" class="close-btn">×</button>
+                </div>
+                <div class="modal-body" id="modal-body">
+                    <!-- Dynamic content will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="products-footer">
+            <button id="start-over-btn" class="btn btn--outline btn--lg">
+                <span class="desktop-only">Start Over</span>
+                <span class="mobile-only">Restart</span>
+            </button>
+            <button id="back-to-mirror-btn" class="btn btn--secondary btn--lg">
+                <span class="desktop-only">Back to Mirror</span>
+                <span class="mobile-only">Home</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Timeout Overlay -->
+    <div id="timeout-overlay" class="timeout-overlay hidden">
+        <div class="timeout-content">
+            <h3>Session Timeout</h3>
+            <p>Touch anywhere to continue or the screen will return to mirror mode</p>
+            <div class="countdown" id="countdown">10</div>
+        </div>
+    </div>
+
+    <script src="utils.js"></script>
+    <script src="components.js"></script>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
